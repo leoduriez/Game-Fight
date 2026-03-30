@@ -1,36 +1,11 @@
-/**
- * =============================================================================
- * ANIMATED BATTLE ARENA - Arène de Combat avec Animations Séquentielles
- * =============================================================================
- * 
- * Ce composant gère l'affichage du combat avec des animations strictement
- * séquentielles style Pokémon :
- * - Pause de 2 secondes entre chaque attaque
- * - Animations d'attaque et de dégâts fluides
- * - Barre de vie qui descend progressivement
- * - Blocage des interactions pendant les animations
- * 
- * Durée totale d'un tour : ~6 secondes
- * 
- * @component
- */
-
 import React, { useState, useEffect, useRef } from 'react';
 import CharacterSprite from './CharacterSprite';
 import SkillButtons from './SkillButtons';
 import BattleLog from './BattleLog';
 import Button from '../ui/Button';
 
-// =============================================================================
-// COMPOSANT INDICATEUR DE VITESSE
-// =============================================================================
-
 /**
- * SpeedIndicator - Affiche les statistiques de vitesse et l'ordre d'attaque prévu
- * 
- * @param {Object} player - Données du joueur
- * @param {Object} enemy - Données de l'ennemi
- * @param {Object} speedComparison - Comparaison des vitesses
+ * Composant SpeedIndicator - Affiche les informations de vitesse et l'ordre d'attaque
  */
 const SpeedIndicator = ({ player, enemy, speedComparison }) => {
   const getFirstAttackerName = () => {
