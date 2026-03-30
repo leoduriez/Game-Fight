@@ -1,0 +1,405 @@
+/* Animations de combat */
+
+/* Animation d'attaque - le personnage se déplace vers l'avant */
+.character-sprite.attacking {
+  animation: attack 0.6s ease-in-out;
+}
+
+@keyframes attack {
+  0% {
+    transform: translateX(0);
+  }
+  30% {
+    transform: translateX(30px) scale(1.1);
+  }
+  60% {
+    transform: translateX(30px) scale(1.1);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Animation pour l'ennemi qui attaque (direction opposée) */
+.character-sprite.enemy.attacking {
+  animation: attackEnemy 0.6s ease-in-out;
+}
+
+@keyframes attackEnemy {
+  0% {
+    transform: translateX(0);
+  }
+  30% {
+    transform: translateX(-30px) scale(1.1);
+  }
+  60% {
+    transform: translateX(-30px) scale(1.1);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Animation de dégâts - le personnage clignote en rouge */
+.character-sprite.damaged {
+  animation: takeDamage 0.5s ease-in-out;
+}
+
+@keyframes takeDamage {
+  0%, 100% {
+    filter: brightness(1);
+    transform: translateX(0);
+  }
+  25% {
+    filter: brightness(1.5) hue-rotate(-20deg);
+    transform: translateX(-10px);
+  }
+  50% {
+    filter: brightness(1.5) hue-rotate(-20deg);
+    transform: translateX(10px);
+  }
+  75% {
+    filter: brightness(1.5) hue-rotate(-20deg);
+    transform: translateX(-5px);
+  }
+}
+
+/* Animation de la barre de vie qui diminue */
+.stat-bar-fill {
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animation au survol des cartes de personnage */
+.character-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.character-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.character-card:hover {
+  transform: translateY(-12px) scale(1.05);
+  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3), 0 0 20px rgba(99, 102, 241, 0.2);
+}
+
+.character-card:hover::before {
+  left: 100%;
+}
+
+.character-card:hover .character-card-emoji img {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 8px 16px rgba(99, 102, 241, 0.4));
+}
+
+.character-card-emoji img {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animation pour la carte sélectionnée */
+.character-card.selected .character-card-emoji img {
+  animation: floatImage 3s ease-in-out infinite;
+  filter: drop-shadow(0 8px 20px rgba(99, 102, 241, 0.4));
+}
+
+@keyframes floatImage {
+  0%, 100% {
+    transform: translateY(0px) scale(1.05);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.1);
+  }
+}
+
+/* Animation d'apparition des boutons de compétence */
+.skill-button {
+  animation: fadeInUp 0.4s ease-out backwards;
+}
+
+.skill-button:nth-child(1) { animation-delay: 0.1s; }
+.skill-button:nth-child(2) { animation-delay: 0.2s; }
+.skill-button:nth-child(3) { animation-delay: 0.3s; }
+.skill-button:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation au clic sur un bouton de compétence */
+.skill-button:active:not(:disabled) {
+  transform: scale(0.95);
+  transition: transform 0.1s;
+}
+
+/* Animation de shake pour l'indicateur VS */
+.vs-indicator {
+  animation: shake 3s ease-in-out infinite;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: rotate(-2deg);
+  }
+  20%, 40%, 60%, 80% {
+    transform: rotate(2deg);
+  }
+}
+
+/* Animation d'entrée pour les sprites de personnage */
+.character-sprite {
+  animation: slideIn 0.6s ease-out;
+}
+
+.character-sprite.player {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.character-sprite.enemy {
+  animation: slideInRight 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animation pour les entrées du journal de combat */
+.log-entry {
+  animation: slideInLog 0.3s ease-out;
+}
+
+@keyframes slideInLog {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Animation de victoire */
+.battle-result .victory {
+  animation: victoryBounce 0.8s ease-out;
+}
+
+@keyframes victoryBounce {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Animation de défaite */
+.battle-result .defeat {
+  animation: defeatShake 0.8s ease-out;
+}
+
+@keyframes defeatShake {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-10px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Animation de glow pour les boutons au hover */
+.btn-primary:hover:not(:disabled) {
+  animation: glow 1.5s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.6);
+  }
+}
+
+/* Animation de rotation pour le spinner de chargement */
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animation d'apparition pour les modales */
+.modal-overlay {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+  animation: scaleIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Animation de bounce pour les emojis de personnage */
+.character-emoji-large {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Animation pour les messages de succès/erreur */
+.success-message,
+.error-message {
+  animation: slideInDown 0.4s ease-out;
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Animation de highlight pour les nouvelles entrées */
+.log-entry:last-child {
+  animation: highlight 1s ease-out;
+}
+
+@keyframes highlight {
+  0% {
+    background: rgba(99, 102, 241, 0.2);
+  }
+  100% {
+    background: var(--white);
+  }
+}
+
+/* Animation de pulsation pour les icones de compétence */
+.skill-icon {
+  transition: transform 0.2s;
+}
+
+.skill-button:hover:not(:disabled) .skill-icon {
+  animation: iconPulse 0.6s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+/* Transition douce pour tous les éléments interactifs */
+.btn,
+.nav-link,
+.icon-btn,
+.character-card,
+.skill-button {
+  transition: all 0.2s ease;
+}
+
+/* Animation de float pour les cartes au repos */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Effet de particules pour les coups critiques (optionnel) */
+@keyframes criticalHit {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2) rotate(360deg);
+    opacity: 0;
+  }
+}
